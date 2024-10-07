@@ -39,7 +39,6 @@ add2path() {
     fi
 }
 
-# Add the following to your ~/.bashrc file
 
 # Function to check if we're in a virtual environment
 function in_venv() {
@@ -62,8 +61,11 @@ function venvoff() {
     echo "Automatic virtual environment activation is OFF."
 }
 
-# Override the pip command
-function pip() {
+# General function to handle pip commands (pip and pip3)
+function pip_command() {
+    local PIP_EXEC="$1"
+    shift  # Remove the first argument (pip or pip3)
+
     # Check if VENV_AUTO is enabled and not already in a venv
     if [ -n "$VENV_AUTO" ] && ! in_venv; then
         # Create a virtual environment in the current directory if it doesn't exist
@@ -84,13 +86,13 @@ function pip() {
     fi
 
     # Run the actual pip command
-    command pip "$@"
+    command "$PIP_EXEC" "$@"
     local PIP_STATUS=$?
 
     # Check for errors related to virtual environment
     if [ $PIP_STATUS -ne 0 ] && ! in_venv; then
         # Specific error checking can be added here based on pip's output
-        if [[ "$@" == "install"* ]]; then
+        if [[ "$1" == "install" ]]; then
             echo "It seems you're not in a virtual environment. Would you like to create one? (y/n)"
             read -r CREATE_VENV
             if [ "$CREATE_VENV" == "y" ] || [ "$CREATE_VENV" == "Y" ]; then
@@ -107,7 +109,7 @@ function pip() {
                     return 1
                 fi
                 # Retry the pip command
-                command pip "$@"
+                command "$PIP_EXEC" "$@"
                 return $?
             else
                 echo "Continuing without a virtual environment."
@@ -118,11 +120,42 @@ function pip() {
     return $PIP_STATUS
 }
 
+# Override the pip command
+function pip() {
+    pip_command pip "$@"
+}
+
+# Override the pip3 command
+function pip3() {
+    pip_command pip3 "$@"
+}
+
 # Ensure the script is sourced correctly
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     echo "Please source this script instead of executing it:"
     echo "source ~/.bashrc"
 fi
+
+
+# Ensure the script is sourced correctly
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    echo "Please source this script instead of executing it:"
+    echo "source ~/.bashrc"
+fi
+
+# Function to check internet connectivity and run apt update if connected
+check_internet_and_update() {
+    wget -q --spider http://google.com
+    if [ $? -eq 0 ]; then
+        echo "Connected to the internet."
+        sudo apt update
+    else
+        echo "Not connected to the internet. Skipping apt update."
+    fi
+}
+
+# Alias to source .bashrc and run the update only when 'sourcebash' is called
+alias sourcebash='source ~/.bashrc && check_internet_and_update && echo ".bashrc sourced and apt updated if connected."'
 
 
 
