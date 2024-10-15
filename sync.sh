@@ -2,9 +2,9 @@
 sudo bash -c 'cat > /usr/local/bin/sync_files.sh <<EOF
 #!/bin/bash
 # Sync files from /home to /Home/Documents/GitHub/bashrc2, but only if they match files in the destination directory
-rsync -av --existing /home/ /Home/Documents/GitHub/bashrc2/
+rsync -av --include=".*" --include="*" --existing /home/ /Home/Documents/GitHub/bashrc2/
 EOF
-chmod +x /usr/local/bin/sync_files.sh'
+chmod +x /usr/local/bin/sync_files.sh
 
 # Create systemd service
 sudo bash -c 'cat > /etc/systemd/system/sync_files.service <<EOF
