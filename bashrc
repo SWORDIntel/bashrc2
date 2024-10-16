@@ -105,7 +105,7 @@ export ENABLE_LESSPIPE=${ENABLE_LESSPIPE:-"1"}
 export U_AGENTS=${U_AGENTS:-"1"}
 
 # Enable support for modules
-export U_MODULES_ENABLE=${U_MODULES_ENABLE:-"0"}
+export U_MODULES_ENABLE=${U_MODULES_ENABLE:-"1"}
 
 # USER ENVIRONMENT
 ################################################################################
@@ -117,7 +117,10 @@ export U_MODULES_ENABLE=${U_MODULES_ENABLE:-"0"}
 
 ################################################################################
 # END USER ENVIRONMENT
-
+export PATH="$HOME/.local/bin:$PATH"
+eval "$(pyenv virtualenv-init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 ################################################################################
 # BEGIN MAIN SECTION
 ################################################################################
@@ -507,3 +510,5 @@ fi
 emsg "Loaded bashrc $BASHRC_VERSION"
 #SetTitle $U_DEFAULT_TITLE
 
+. "$HOME/.cargo/env"
+export PATH=/usr/local/bin:$PATH
