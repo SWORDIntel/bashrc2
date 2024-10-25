@@ -40,17 +40,3 @@
 # If enabled the (experimental) modules system will be enabled. It is disabled by
 # by default in the master branch.
 #export U_MODULES_ENABLE=0
-
-# Function to strip leading $ from commands before execution
-preexec_strip_dollar() {
-    # Check if the command starts with '$ '
-    if [[ "$BASH_COMMAND" == '$ '* ]]; then
-        # Strip the leading '$ ' and execute the modified command
-        eval "${BASH_COMMAND#'$ '}"
-        # Prevent the original command from executing
-        return 1
-    fi
-}
-
-# Enable DEBUG trap for every command
-trap 'preexec_strip_dollar' DEBUG
