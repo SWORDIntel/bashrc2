@@ -1,0 +1,36 @@
+sending incremental file list
+[sender] hiding directory .config because of pattern */
+[sender] hiding directory .rpmdb because of pattern */
+[sender] showing file .bashrc.precustom because of pattern .bashrc.precustom
+[sender] showing file .bash_functions because of pattern .bash_functions
+[sender] hiding directory .local because of pattern */
+[sender] hiding directory .bash_functions.d because of pattern */
+[sender] hiding directory .bash_aliases.d because of pattern */
+[sender] hiding directory .ssh because of pattern */
+[sender] showing file .bash_modules because of pattern .bash_modules
+[sender] showing file .bashrc.postcustom because of pattern .bashrc.postcustom
+[sender] hiding directory .docker because of pattern */
+[sender] hiding directory .nvm because of pattern */
+[sender] showing file .bashrc because of pattern .bashrc
+[sender] showing file .bash_aliases because of pattern .bash_aliases
+[sender] hiding directory .cache because of pattern */
+[sender] hiding directory snap because of pattern */
+[sender] hiding directory .bash_modules.d because of pattern */
+[sender] showing file .bash_completion because of pattern .bash_completion
+[sender] hiding directory .npm because of pattern */
+[sender] hiding directory .bash_completion.d because of pattern */
+delta-transmission disabled for local transfer or --whole-file
+./
+.bash_aliases
+.bash_aliases.bak
+.bash_completion
+.bash_completion.bak
+.bash_functions
+.bash_functions.bak
+.bash_history
+.bash_modules
+.bashrc
+.bashrc.bak
+.bashrc.postcustom
+.bashrc.precustom
+.profile
